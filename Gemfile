@@ -1,10 +1,10 @@
-source "http://rubygems.org"
+source 'http://rubygems.org'
 
-gem "rake",    "~> 0.9"
-gem "sinatra", "~> 1.2"
-gem "json",    "~> 1.6"
+gem 'sinatra'
+gem 'json'
 
-group :test do
-  gem "rack-test", "~> 0.6"
+group :coding do
+  gem 'minitest'
+  gem 'rack-test'
 end
 

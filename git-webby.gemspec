@@ -5,8 +5,8 @@ Gem::Specification.new do |spec|
   spec.name              = "git-webby"
   spec.summary           = "Git Web implementation of the Smart HTTP and other features"
   spec.authors           = ["Hallison Batista"]
-  spec.email             = "hallison@codigorama.com"
-  spec.homepage          = "http://github.com/codigorama/git-webby"
+  spec.email             = "hallisonbatista@gmail.com"
+  spec.homepage          = "http://github.com/hallison/git-webby"
   spec.rubyforge_project = spec.name
   spec.version           = Git::Webby::VERSION
   spec.date              = Git::Webby::RELEASE
@@ -27,6 +27,6 @@ Gem::Specification.new do |spec|
     Thanks for use Git::Webby.
     #{'-'*78}
   end
-  spec.add_dependency "sinatra", "~> 1.2"
+  spec.add_dependency "sinatra"
 end
 
