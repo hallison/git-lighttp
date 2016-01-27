@@ -9,3 +9,4 @@ group :coding do
   gem 'rack-test'
 end
 
+gemspec
