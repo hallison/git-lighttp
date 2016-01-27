@@ -1,6 +1,6 @@
 .SHELL: /bin/sh
 
-name     = git-webby
+name     = git-lighttp
 version  = 0.3.0
 specfile = $(name).gemspec
 package  = $(name)-$(version).gem
@@ -15,6 +15,7 @@ ctags:
 clean:
 	rm -rf $(name)-*.gem
 	rm -rf *.lock
+	rm -rf doc/api/**
 
 check:
 	ruby test/all.rb

@@ -1,4 +1,4 @@
-module Git::Webby
+module Git::Lighttp
 
   module HttpBackendHelpers #:nodoc:
 
@@ -172,7 +172,7 @@ module Git::Webby
 
     helpers AuthenticationHelpers
 
-  end # HttpBackendServer
+  end # HttpBackend
 
-end # Git::Webby
+end # Git::Lighttp
 

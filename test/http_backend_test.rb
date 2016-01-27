@@ -4,7 +4,7 @@ alias response last_response
 
 describe 'HTTP Backend server' do
   def app
-    Git::Webby::HttpBackend.configure do |server|
+    Git::Lighttp::HttpBackend.configure do |server|
       server.project_root = fixtures
       server.git_path     = '/usr/bin/git'
       server.get_any_file = true
@@ -12,7 +12,7 @@ describe 'HTTP Backend server' do
       server.receive_pack = true
       server.authenticate = false
     end
-    Git::Webby::HttpBackend
+    Git::Lighttp::HttpBackend
   end
 
   before do

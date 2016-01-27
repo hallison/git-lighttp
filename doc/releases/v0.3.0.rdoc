@@ -1,4 +1,4 @@
-== Git-Webby v0.3.0
+== Git-Lighttp v0.3.0
 
 Improvements and new features.
 
@@ -6,7 +6,8 @@ Improvements and new features.
 - Improvements in the treeish middleware.
 - HTTP group support.
 - The configuration can be made the rack-way, using the class itself.
+- The project renamed from Git-Webby to Git-Lighttp.
 
 This is a beta version. For more informations about this release,
-please visit <http://github.com/hallison/git-webby>.
+please visit <http://github.com/hallison/git-lighttp>.
 

@@ -6,7 +6,7 @@ describe 'HTTP password handler' do
       'luke'    => '1y687odVzuFJs',
       'john'    => 'BInD5.JEyr5Ng'
     }
-    @htpasswd = Git::Webby::Htpasswd.new(fixtures('htpasswd'))
+    @htpasswd = Git::Lighttp::Htpasswd.new(fixtures('htpasswd'))
   end
 
   after do
@@ -31,7 +31,7 @@ describe 'HTTP password handler' do
   end
 
   it 'create or update user' do
-    Git::Webby::Htpasswd.new fixtures('htpasswd.tmp') do |htpasswd|
+    Git::Lighttp::Htpasswd.new fixtures('htpasswd.tmp') do |htpasswd|
       htpasswd.create 'judas', 'hanged'
       assert htpasswd.include?('judas')
       assert htpasswd.authenticated?('judas', 'hanged')
@@ -46,7 +46,7 @@ describe 'HTTP password handler' do
   end
 
   it 'destroy user' do
-    Git::Webby::Htpasswd.new fixtures('htpasswd.tmp') do |htpasswd|
+    Git::Lighttp::Htpasswd.new fixtures('htpasswd.tmp') do |htpasswd|
       htpasswd.create 'judas', 'hanged'
       assert htpasswd.include?('judas')
 

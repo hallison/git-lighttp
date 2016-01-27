@@ -6,13 +6,13 @@ require "sinatra/base"
 require "json"
 
 # Internal requirements
-require "git/webby/extensions"
-require "git/webby/version"
+require "git/lighttp/extensions"
+require "git/lighttp/version"
 
-# See <b>Git::Webby</b> for documentation.
+# See <b>Git::Lighttp</b> for documentation.
 module Git
 
-  # The main goal of the <b>Git::Webby</b> is implement the following useful
+  # The main goal of the <b>Git::Lighttp</b> is implement the following useful
   # features.
   #
   # - Smart-HTTP, based on _git-http-backend_.
@@ -62,7 +62,7 @@ module Git
   #
   #   *receive_pack* ::
   #     Like +http.receivepack+.
-  module Webby
+  module Lighttp
 
     class ProjectHandler #:nodoc:
 
@@ -270,7 +270,7 @@ module Git
       end
 
       def authenticated?
-        request.env["REMOTE_USER"] && request.env["git.webby.authenticated"]
+        request.env["REMOTE_USER"] && request.env["git.lighttp.authenticated"]
       end
 
       def authenticate(username, password)
@@ -278,14 +278,14 @@ module Git
         validated = authentication.provided? && authentication.basic?
         granted   = htpasswd.authenticated? username, password
         if checked and validated and granted
-          request.env["git.webby.authenticated"] = true
+          request.env["git.lighttp.authenticated"] = true
           request.env["REMOTE_USER"] = authentication.username
         else
           nil
         end
       end
 
-      def unauthorized!(realm = Git::Webby::info)
+      def unauthorized!(realm = Git::Lighttp::info)
         headers "WWW-Authenticate" => %(Basic realm="#{realm}")
         throw :halt, [ 401, "Authorization Required" ]
       end
@@ -309,8 +309,8 @@ module Git
     end # AuthenticationHelpers
 
     # Servers
-    autoload :HttpBackend, "git/webby/http_backend"
-    autoload :Treeish,     "git/webby/treeish"
+    autoload :HttpBackend, "git/lighttp/http_backend"
+    autoload :Treeish,     "git/lighttp/treeish"
 
     class << self
 
@@ -332,7 +332,7 @@ module Git
         }.to_struct
       end
 
-      # Configure Git::Webby modules using keys. See Config for options.
+      # Configure Git::Lighttp modules using keys. See Config for options.
       def configure(&block)
         yield config
         config
@@ -353,8 +353,8 @@ module Git
 
     class Application < Sinatra::Base #:nodoc:
 
-      set :project_root, lambda { Git::Webby.config.default.project_root }
-      set :git_path,     lambda { Git::Webby.config.default.git_path }
+      set :project_root, lambda { Git::Lighttp.config.default.project_root }
+      set :git_path,     lambda { Git::Lighttp.config.default.git_path }
 
       mime_type :json, "application/json"
 

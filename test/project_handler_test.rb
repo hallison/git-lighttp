@@ -1,6 +1,6 @@
 describe 'Project handler' do
   before do
-    @git = Git::Webby::ProjectHandler.new(fixtures, '/usr/bin/git')
+    @git = Git::Lighttp::ProjectHandler.new(fixtures, '/usr/bin/git')
     @objects = [
       'HEAD',
       'info/refs',

@@ -18,7 +18,7 @@ describe 'Configuration' do
   end
 
   it 'configure by application' do
-    Git::Webby.configure do |app|
+    Git::Lighttp.configure do |app|
       app.default.project_root = '/var/git/repos'
       app.default.git_path = '/usr/local/bin/git'
       app.treeish.authenticate = true
@@ -26,14 +26,14 @@ describe 'Configuration' do
   
     @config.keys.each do |app|
       @config[app].each do |option, value|
-        assert_equal value, Git::Webby.config[app][option]
+        assert_equal value, Git::Lighttp.config[app][option]
       end
     end
   end
 
   it 'load from YAML file' do
     yaml   = YAML.load_file(fixtures('config.yml')).symbolize_keys
-    config = Git::Webby.load_config_file(fixtures('config.yml'))
+    config = Git::Lighttp.load_config_file(fixtures('config.yml'))
     yaml.keys.each do |app|
       yaml[app].each do |option, value|
         assert_equal value, config[app][option]

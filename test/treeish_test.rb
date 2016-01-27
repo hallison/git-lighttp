@@ -6,10 +6,10 @@ alias response last_response
 
 describe 'Project tree' do
   def app
-    Git::Webby::Treeish.configure do |server|
+    Git::Lighttp::Treeish.configure do |server|
       server.project_root = fixtures
     end
-    Git::Webby::Treeish
+    Git::Lighttp::Treeish
   end
 
   it 'get tree of project from reference' do

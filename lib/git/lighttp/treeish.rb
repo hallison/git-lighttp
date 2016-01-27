@@ -1,4 +1,4 @@
-module Git::Webby
+module Git::Lighttp
 
   class Treeish < Application
 

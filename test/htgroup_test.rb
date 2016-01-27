@@ -6,7 +6,7 @@ describe 'HTTP group handler' do
       'prophets' => %w[malachi jeremiah]
     }
 
-    @htgroup = Git::Webby::Htgroup.new(fixtures('htgroup'))
+    @htgroup = Git::Lighttp::Htgroup.new(fixtures('htgroup'))
   end
 
   it 'find member' do

@@ -2,10 +2,10 @@ module Git
 
   # The objective of this class is to implement various ideas proposed by the
   # Semantic Versioning Specification (see reference[http://semver.org/]).
-  module Webby #:nodoc:
+  module Lighttp #:nodoc:
 
-    VERSION   = "0.2.0"
-    RELEASE   = "2011-07-16"
+    VERSION   = "0.3.0"
+    RELEASE   = "2016-01-27"
     TIMESTAMP = "2011-07-05 12:32:36 -04:00"
 
     def self.info

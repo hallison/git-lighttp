@@ -5,7 +5,7 @@ require 'minitest/autorun'
 require 'minitest/rg'
 require 'test/helpers'
 require 'rack/test'
-require 'git/webby'
+require 'git/lighttp'
 
 Dir['test/*_test.rb'].each do |test|
   load test

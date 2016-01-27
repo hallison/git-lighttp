@@ -1,7 +1,7 @@
-require "git/webby"
+require "git/lighttp"
 
 def spec
-  @spec ||= Gem::Specification.load("git-webby.gemspec")
+  @spec ||= Gem::Specification.load("git-lighttp.gemspec")
 end
 
 desc "Run tests"

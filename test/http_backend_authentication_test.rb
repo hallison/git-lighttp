@@ -6,12 +6,12 @@ alias response last_response
 
 describe 'HTTP Backend server authentication' do
   def app
-    Git::Webby::HttpBackend.configure do |server|
+    Git::Lighttp::HttpBackend.configure do |server|
       server.project_root = fixtures
       server.git_path     = '/usr/bin/git'
       server.authenticate = true
     end
-    Git::Webby::HttpBackend
+    Git::Lighttp::HttpBackend
   end
 
   before do
