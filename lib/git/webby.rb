@@ -219,6 +219,29 @@ module Git
       end
     end
 
+    class Htgroup #:nodoc:
+
+      def initialize(file)
+        require "webrick/httpauth/htgroup"
+        WEBrick::HTTPAuth::Htgroup.class_eval do
+          attr_reader :group
+        end
+        @handler = WEBrick::HTTPAuth::Htgroup.new(file)
+        yield self if block_given?
+      end
+
+      def members(group)
+        @handler.members(group)
+      end
+
+      def groups(username)
+        @handler.group.select do |group, members|
+          members.include? username
+        end.keys
+      end
+
+    end
+
     module GitHelpers #:nodoc:
 
       def git
