@@ -1,4 +1,5 @@
-README.rdoc
+README.md
+README.pt-BR.md
 doc/releases/*
 lib/git/*
 lib/git/lighttp/*
