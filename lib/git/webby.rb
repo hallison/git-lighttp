@@ -30,7 +30,7 @@ module Git
   # {git-http-backend official
   # page}[http://www.kernel.org/pub/software/scm/git/docs/git-http-backend.html]
   #
-  # For tree view (JSON API) just use the attribute +tree_view+.
+  # For tree view (JSON API) just use the attribute +treeish+.
   #
   # [*default*]
   #   Default configuration. All attributes will be used by all modular

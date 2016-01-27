@@ -1,6 +1,6 @@
 default:
   project_root: /var/git/repos
-  git_path    : /usr/local/bin/git
+  git_path    : /usr/bin/git
 
 treeish:
   authenticate: true
