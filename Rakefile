@@ -1,12 +1,7 @@
-#:nopkg:
-ENV["RUBYLIB"] = "#{File.dirname(__FILE__)}/lib"
-ENV["RUBYOPT"] = "-rubygems"
-#:
-
-require "git/webby"
+require "git/lighttp"
 
 def spec
-  @spec ||= Gem::Specification.load("git-webby.gemspec")
+  @spec ||= Gem::Specification.load("git-lighttp.gemspec")
 end
 
 desc "Run tests"
@@ -19,6 +14,17 @@ end
 desc "API Documentation (RDoc)"
 task :doc do
   sh "rdoc -o doc/api -H -f hanna -m README.rdoc"
+end
+
+desc "Build tags"
+task :tags do
+  rbalias = '/.*alias(_method)?[[:space:]]+:([[:alnum:]_=!?]+),?[[:space:]]+:([[:alnum:]_=!]+)/\\2/f/'
+  sh "ctags", "--recurse=yes",
+              "--tag-relative=yes",
+              "--totals=yes",
+              "--extra=+f",
+              "--fields=+iaS",
+              "--regex-ruby="+rbalias
 end
 
 desc "Build #{spec.file_name}"

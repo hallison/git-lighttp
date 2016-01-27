@@ -1,4 +1,6 @@
-= Git-Webby - Web smarty for Git
+= Git-Lighttp - Web smarty for Git
+
+{<img src="https://badge.fury.io/rb/git-lighttp.svg" alt="Gem Version" />}[https://badge.fury.io/rb/git-lighttp]
 
 == DESCRIPTION
 
@@ -8,31 +10,31 @@ Smart-HTTP server handler (written by
 {Sinatra}[http://www.sinatrarb.com] and aims replace the original
 `git-http-backend` including new features.
 
-The main goal of the <b>Git-Webby</b> is implement the following useful features.
+The main goal of the <b>Git-Lighttp</b> is implement the following useful features.
 
 - Smart-HTTP, based on _git-http-backend_.
 - Authentication flexible based on database or configuration file like .+htpasswd+.
-- API to get information about repository.
+- API to get information about repository (_Treeish_).
 
 == SINOPSIS
 
-Install the Git-Webby using {Rubygems}[http://rubygems.org/gems/git-webby].
+Install the Git-Lighttp using {Rubygems}[http://rubygems.org/gems/git-lighttp].
 
-  gem install git-webby
+  gem install git-lighttp
 
-Or fork the project hosted on {Github}[http://github.com/codigorama/git-webby].
+Or checkout the project hosted on {Github}[http://github.com/hallison/git-lighttp].
 
-  git clone https://github.com/codigorama/git-webby.git
+  git clone https://github.com/hallison/git-lighttp.git
   ...
-  cd git-webby
+  cd git-lighttp
   rake install
 
-Configure your Rackup file (<tt>config.ru</tt>) using the following instructions:
+Configure the Rackup file (<tt>config.ru</tt>) using the following instructions:
 
   # config.ru
-  require "git/webby"
+  require "git/lighttp"
 
-  Git::Webby::HttpBackend.configure do |server|
+  Git::Lighttp::HttpBackend.configure do |server|
     server.project_root = "/home/git/repositories"
     server.git_path     = "/usr/bin/git"
     server.get_any_file = true
@@ -48,27 +50,26 @@ You can use the <tt>.netrc</tt> for improve your connection. Put this:
 
   machine <host> login <username> password <password>
 
-The Git-Webby is under development, so there are still many improvements to be
-made. Please, help us to improve the project with your feedback to
-{issues}[http://github.com/codigorama/git-webby] or sending email to
-{opensource@codigorama.com}[mailto:opensource@codigorama.com].
+The Git-Lighttp is under development, so there are still many improvements to be
+made. Please, help us to improve the project sending your feedback to
+{issues}[http://github.com/hallison/git-lighttp] or sending email to
+{hallisonbatista@gmail.com}[mailto:hallisonbatista@gmail.com].
 
-Discuss in {Google Groups}[http://groups.google.com/group/git-webby].
+Discuss in {Google Groups}[http://groups.google.com/group/git-lighttp].
 
 == AUTHORS
 
-Written by Hallison Batista <hallison@codigorama.com>.
+Written by Hallison Batista <hallisonbatista@gmail.com>.
 
 == BUGS
 
-If you find a bug, please report it at the Git-Webby project's
-{issues tracker}[http://github.com/codigorama/git-webby] on Github.
+If you find a bug, please report it at the Git-Lighttp project's
+{issues tracker}[http://github.com/hallison/git-lighttp] on Github.
 
 == LICENSE
 
-Git-Webby is Copyright (c) 2011 Hallison Batista, Codigorama.
+Git-Lighttp is Copyright (c) 2011-2015 Hallison Batista.
 
-It is free software, and may be redistributed under the terms specified in
+This is free software, and may be redistributed under the terms specified in
 LICENSE.txt.
-
 

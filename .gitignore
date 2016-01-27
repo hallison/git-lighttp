@@ -4,6 +4,7 @@
 *.log
 *.tmp
 config.ru
+*.lock
 test.*
 doc/api/*
 

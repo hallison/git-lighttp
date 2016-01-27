@@ -1,4 +1,4 @@
-== Git-Webby v0.2.0
+== Git-Lighttp v0.2.0
 
 Implementation of viewer for browsing of source code:
 
@@ -18,7 +18,7 @@ Implementation of viewer for browsing of source code:
   - Small improvements in helpers and tests.
 
 This is a beta version. For more informations about this release,
-please visit <http://github.com/codigorama/git-webby>.
+please visit <http://github.com/codigorama/git-lighttp>.
 
 
 

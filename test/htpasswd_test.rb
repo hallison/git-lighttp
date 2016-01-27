@@ -1,24 +1,19 @@
-require "test/unit"
-require "test/helpers"
-require "git/webby"
-
-class HtpasswdTest < Test::Unit::TestCase
-
-  def setup
+describe 'HTTP password handler' do
+  before do
     @passwords = {
-      "matthew" => "zKOzsdCzE.mEE",
-      "mark"    => "V5.e7XhcXHmQc",
-      "luke"    => "1y687odVzuFJs",
-      "john"    => "BInD5.JEyr5Ng"
+      'matthew' => 'zKOzsdCzE.mEE',
+      'mark'    => 'V5.e7XhcXHmQc',
+      'luke'    => '1y687odVzuFJs',
+      'john'    => 'BInD5.JEyr5Ng'
     }
-    @htpasswd = Git::Webby::Htpasswd.new(fixtures("htpasswd"))
+    @htpasswd = Git::Lighttp::Htpasswd.new(fixtures('htpasswd'))
   end
 
-  def teardown
-    File.delete fixtures("htpasswd.tmp") if File.exist? fixtures("htpasswd.tmp")
+  after do
+    File.delete fixtures('htpasswd.tmp') if File.exist? fixtures('htpasswd.tmp')
   end
 
-  should "find user" do
+  it 'find user' do
     @passwords.each do |username, password|
       assert_equal password, @htpasswd.find(username)
       @htpasswd.find username do |pass, salt|
@@ -28,41 +23,41 @@ class HtpasswdTest < Test::Unit::TestCase
     end
   end
 
-  should "check authentication of the user" do
+  it 'check authentication of the user' do
     @passwords.keys.each do |user|
-      assert !@htpasswd.authenticated?(user, "invalid")
-      assert  @htpasswd.authenticated?(user, "s3kr3t")
+      assert !@htpasswd.authenticated?(user, 'invalid')
+      assert  @htpasswd.authenticated?(user, 's3kr3t')
     end
   end
 
-  should "create or update user" do
-    Git::Webby::Htpasswd.new fixtures("htpasswd.tmp") do |htpasswd|
-      htpasswd.create "judas", "hanged"
-      assert htpasswd.include?("judas")
-      assert htpasswd.authenticated?("judas", "hanged")
+  it 'create or update user' do
+    Git::Lighttp::Htpasswd.new fixtures('htpasswd.tmp') do |htpasswd|
+      htpasswd.create 'judas', 'hanged'
+      assert htpasswd.include?('judas')
+      assert htpasswd.authenticated?('judas', 'hanged')
     end
   end
 
-  should "list users" do
+  it 'list users' do
     assert_equal 4, @htpasswd.size
     @passwords.keys.each do |user|
       assert @htpasswd.include?(user)
     end
   end
 
-  should "destroy user" do
-    Git::Webby::Htpasswd.new fixtures("htpasswd.tmp") do |htpasswd|
-      htpasswd.create "judas", "hanged"
-      assert htpasswd.include?("judas")
+  it 'destroy user' do
+    Git::Lighttp::Htpasswd.new fixtures('htpasswd.tmp') do |htpasswd|
+      htpasswd.create 'judas', 'hanged'
+      assert htpasswd.include?('judas')
 
-      htpasswd.destroy "judas"
+      htpasswd.destroy 'judas'
 
-      assert !htpasswd.include?("judas")
+      assert !htpasswd.include?('judas')
     end
   end
 
-  should "check invalid user" do
-    assert !@htpasswd.authenticated?("nobody", "empty")
+  it 'check invalid user' do
+    assert !@htpasswd.authenticated?('nobody', 'empty')
   end
 
 end
