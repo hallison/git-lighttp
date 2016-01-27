@@ -1,5 +1,7 @@
 = Git-Webby - Web mais esperta para o Git
 
+{<img src="https://badge.fury.io/rb/git-webby.svg" alt="Gem Version" />}[https://badge.fury.io/rb/git-webby]
+
 == DESCRIÇÃO
 
 Este projeto foi inspirado no {Grack}[http://github.com/schacon/grack], um
