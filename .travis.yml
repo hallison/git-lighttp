@@ -5,8 +5,9 @@ rvm:
 - rbx-19mode
 - jruby-9.0.4.0
 env:
-- "RUBYOPT='-rubygems -I.:lib'"
 branches:
   only:
   - master
   - coding
+script:
+- make check build
