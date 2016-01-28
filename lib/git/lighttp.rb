@@ -1,22 +1,22 @@
 # Standard requirements
-require "yaml"
+require 'yaml'
 
 # 3rd part requirements
-require "sinatra/base"
-require "json"
+require 'sinatra/base'
+require 'json'
 
 # Internal requirements
-require "git/lighttp/extensions"
-require "git/lighttp/version"
+require 'git/lighttp/extensions'
+require 'git/lighttp/version'
 
-# See <b>Git::Lighttp</b> for documentation.
+# See *Git::Lighttp* for documentation.
 module Git
 
-  # The main goal of the <b>Git::Lighttp</b> is implement the following useful
+  # The main goal of the *Git::Lighttp* is implement the following useful
   # features.
   #
   # - Smart-HTTP, based on _git-http-backend_.
-  # - Authentication flexible based on database or configuration file like <tt>.htpasswd</tt>.
+  # - Authentication flexible based on database or configuration file like +.htpasswd+.
   # - API to get information about repository.
   #
   # This class configure the needed variables used by application. See
@@ -27,8 +27,7 @@ module Git
   #
   # The HTTP-Backend application is configured by +http_backend+ attribute
   # to set the Git RCP CLI. More details about this feature, see the
-  # {git-http-backend official
-  # page}[http://www.kernel.org/pub/software/scm/git/docs/git-http-backend.html]
+  # {git-http-backend official page}[http://www.kernel.org/pub/software/scm/git/docs/git-http-backend.html]
   #
   # For tree view (JSON API) just use the attribute +treeish+.
   #
@@ -36,31 +35,31 @@ module Git
   #   Default configuration. All attributes will be used by all modular
   #   applications.
   #
-  #   *project_root* ::
+  #   *default.project_root* ::
   #     Sets the root directory where repositories have been
   #     placed.
-  #   *git_path* ::
+  #   *default.git_path* ::
   #     Path to the git command line.
   #
   # [*treeish*]
   #   Configuration for Treeish JSON API.
   #
-  #   *authenticate* ::
+  #   *treeish.authenticate* ::
   #     Sets if the tree view server requires authentication.
   #
   # [*http_backend*]
   #   HTTP-Backend configuration.
   #
-  #   *authenticate* ::
+  #   *http_backend.authenticate* ::
   #     Sets if authentication is required.
   #
-  #   *get_any_file* ::
+  #   *http_backend.get_any_file* ::
   #     Like +http.getanyfile+.
   #
-  #   *upload_pack*  ::
+  #   *http_backend.upload_pack*  ::
   #     Like +http.uploadpack+.
   #
-  #   *receive_pack* ::
+  #   *http_backend.receive_pack* ::
   #     Like +http.receivepack+.
   module Lighttp
 
@@ -73,7 +72,7 @@ module Git
 
       attr_reader :repository
 
-      def initialize(project_root, path = "/usr/bin/git")
+      def initialize(project_root, path = '/usr/bin/git')
         @repository   = nil
         @path         = check_path(File.expand_path(path))
         @project_root = check_path(File.expand_path(project_root))
@@ -88,7 +87,7 @@ module Git
       end
 
       def cli(command, *args)
-        %Q[#{@path} #{args.unshift(command.to_s.gsub("_","-")).compact.join(" ")}]
+        %Q[#{@path} #{args.unshift(command.to_s.gsub('_','-')).compact.join(' ')}]
       end
 
       def run(command, *args)
@@ -111,7 +110,7 @@ module Git
         path_to(:objects, :info, :packs)
       end
 
-      def tree(ref = "HEAD", path = "")
+      def tree(ref = 'HEAD', path = '')
         list = run("ls-tree --abbrev=6 --full-tree --long #{ref}:#{path}")
         if list
           tree = []
@@ -149,11 +148,11 @@ module Git
       end
 
       def ftype
-        { "120" => "l", "100" => "-", "040" => "d" }
+        { '120' => 'l', '100' => '-', '040' => 'd' }
       end
 
       def fperm
-        [ "---", "--x", "-w-", "-wx", "r--", "r-x", "rw-", "rwx"  ]
+        [ '---', '--x', '-w-', '-wx', 'r--', 'r-x', 'rw-', 'rwx'  ]
       end
 
       def fsize(str, scale = 1)
@@ -171,7 +170,7 @@ module Git
     class Htpasswd #:nodoc:
 
       def initialize(file)
-        require "webrick/httpauth/htpasswd"
+        require 'webrick/httpauth/htpasswd'
         @handler = WEBrick::HTTPAuth::Htpasswd.new(file)
         yield self if block_given?
       end
@@ -222,7 +221,7 @@ module Git
     class Htgroup #:nodoc:
 
       def initialize(file)
-        require "webrick/httpauth/htgroup"
+        require 'webrick/httpauth/htgroup'
         WEBrick::HTTPAuth::Htgroup.class_eval do
           attr_reader :group
         end
@@ -254,7 +253,7 @@ module Git
       end
 
       def content_type_for_git(name, *suffixes)
-        content_type("application/x-git-#{name}-#{suffixes.compact.join("-")}")
+        content_type("application/x-git-#{name}-#{suffixes.compact.join('-')}")
       end
 
     end
@@ -262,7 +261,7 @@ module Git
     module AuthenticationHelpers #:nodoc:
 
       def htpasswd
-        @htpasswd ||= Htpasswd.new(git.path_to("htpasswd"))
+        @htpasswd ||= Htpasswd.new(git.path_to('htpasswd'))
       end
 
       def authentication
@@ -270,7 +269,7 @@ module Git
       end
 
       def authenticated?
-        request.env["REMOTE_USER"] && request.env["git.lighttp.authenticated"]
+        request.env['REMOTE_USER'] && request.env['git.lighttp.authenticated']
       end
 
       def authenticate(username, password)
@@ -278,20 +277,20 @@ module Git
         validated = authentication.provided? && authentication.basic?
         granted   = htpasswd.authenticated? username, password
         if checked and validated and granted
-          request.env["git.lighttp.authenticated"] = true
-          request.env["REMOTE_USER"] = authentication.username
+          request.env['git.lighttp.authenticated'] = true
+          request.env['REMOTE_USER'] = authentication.username
         else
           nil
         end
       end
 
       def unauthorized!(realm = Git::Lighttp::info)
-        headers "WWW-Authenticate" => %(Basic realm="#{realm}")
-        throw :halt, [ 401, "Authorization Required" ]
+        headers 'WWW-Authenticate' => %(Basic realm="#{realm}")
+        throw :halt, [ 401, 'Authorization Required' ]
       end
 
       def bad_request!
-        throw :halt, [ 400, "Bad Request" ]
+        throw :halt, [ 400, 'Bad Request' ]
       end
 
       def authenticate!
@@ -299,7 +298,7 @@ module Git
         unauthorized! unless authentication.provided?
         bad_request!  unless authentication.basic?
         unauthorized! unless authenticate(*authentication.credentials)
-        request.env["REMOTE_USER"] = authentication.username
+        request.env['REMOTE_USER'] = authentication.username
       end
 
       def access_granted?(username, password)
@@ -309,16 +308,16 @@ module Git
     end # AuthenticationHelpers
 
     # Servers
-    autoload :HttpBackend, "git/lighttp/http_backend"
-    autoload :Treeish,     "git/lighttp/treeish"
+    autoload :HttpBackend, 'git/lighttp/http_backend'
+    autoload :Treeish,     'git/lighttp/treeish'
 
     class << self
 
       def config
         @config ||= {
           :default => {
-            :project_root => "/home/git",
-            :git_path     => "/usr/bin/git"
+            :project_root => '/home/git',
+            :git_path     => '/usr/bin/git'
           },
           :treeish => {
             :authenticate => false
@@ -346,20 +345,16 @@ module Git
         end
         config
       rescue IndexError => error
-        abort "configuration option not found"
+        abort 'configuration option not found'
       end
 
     end
 
     class Application < Sinatra::Base #:nodoc:
-
       set :project_root, lambda { Git::Lighttp.config.default.project_root }
       set :git_path,     lambda { Git::Lighttp.config.default.git_path }
 
-      mime_type :json, "application/json"
-
+      mime_type :json, 'application/json'
     end
-
   end
-
 end

@@ -12,9 +12,9 @@ module Git::Lighttp
 
     get %r{/(.*?)/(.*?/{0,1}.*)$} do |name, path|
       content_type :json
-      path = path.split("/")
+      path = path.split('/')
       ref  = path.shift
-      tree = repository.tree(ref, path.join("/"))
+      tree = repository.tree(ref, path.join('/'))
       tree.to_json(:max_nesting => tree.size*6)
     end
 
