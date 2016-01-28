@@ -6,8 +6,10 @@ alias response last_response
 
 describe 'Project tree' do
   def app
+    Git::Lighttp.config_reset!
     Git::Lighttp::Treeish.configure do |server|
       server.project_root = fixtures
+      server.git_path = '/usr/bin/git'
     end
     Git::Lighttp::Treeish
   end

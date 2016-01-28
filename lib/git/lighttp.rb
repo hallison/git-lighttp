@@ -313,22 +313,28 @@ module Git
 
     class << self
 
+      DEFAULT_CONFIG =  {
+        :default => {
+          :project_root => '/home/git',
+          :git_path     => '/usr/bin/git'
+        },
+        :treeish => {
+          :authenticate => false
+        },
+        :http_backend => {
+          :authenticate => true,
+          :get_any_file => true,
+          :upload_pack  => true,
+          :receive_pack => false
+        }
+      }.freeze
+
       def config
-        @config ||= {
-          :default => {
-            :project_root => '/home/git',
-            :git_path     => '/usr/bin/git'
-          },
-          :treeish => {
-            :authenticate => false
-          },
-          :http_backend => {
-            :authenticate => true,
-            :get_any_file => true,
-            :upload_pack  => true,
-            :receive_pack => false
-          }
-        }.to_struct
+        @config ||= DEFAULT_CONFIG.to_struct
+      end
+
+      def config_reset!
+        @config = DEFAULT_CONFIG.to_struct
       end
 
       # Configure Git::Lighttp modules using keys. See Config for options.
@@ -347,7 +353,6 @@ module Git
       rescue IndexError => error
         abort 'configuration option not found'
       end
-
     end
 
     class Application < Sinatra::Base #:nodoc:
