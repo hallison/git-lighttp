@@ -2,6 +2,8 @@
 
 [![Gem Version](https://badge.fury.io/rb/git-lighttp.svg)](https://badge.fury.io/rb/git-lighttp)
 [![Build Status](https://travis-ci.org/hallison/git-lighttp.svg?branch=master)](https://travis-ci.org/hallison/git-lighttp)
+[![Code Climate](https://codeclimate.com/github/hallison/git-lighttp/badges/gpa.svg)](https://codeclimate.com/github/hallison/git-lighttp)
+[![Inline docs](http://inch-ci.org/github/hallison/git-lighttp.svg?branch=master)](http://inch-ci.org/github/hallison/git-lighttp)
 
 ## DESCRIÇÃO
 
