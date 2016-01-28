@@ -24,16 +24,16 @@ The main goal of the **Git-Lighttp** is implement the following useful features.
 
 ## SINOPSIS
 
-Install the Git-Lighttp using [Rubygems][1].
+Install the Git-Lighttp using [Rubygems][4].
 
     $ gem install git-lighttp
 
-[1]: http://rubygems.org/gems/git-lighttp
+[4]: http://rubygems.org/gems/git-lighttp
 
-Or checkout the project hosted on [Gitlab][1] or in [Github][2].
+Or checkout the project hosted on [Gitlab][5] or [Github][6].
 
-[1]: http://gitlab.com/hallison/git-lighttp
-[2]: http://github.com/hallison/git-lighttp
+[5]: http://gitlab.com/hallison/git-lighttp
+[6]: http://github.com/hallison/git-lighttp
 
     $ git clone https://gitlab.com/hallison/git-lighttp.git
     $ ...
@@ -65,14 +65,14 @@ You can use the `.netrc` for improve your connection. Put this:
 
 The Git-Lighttp is under development, so there are still many improvements to
 be made. Please, help us to improve the project sending your feedback to
-[issues][1] or sending email to [hallisonbatista@gmail.com][2].
+[issues][7] or sending email to [hallisonbatista@gmail.com][8].
 
-[1]: http://github.com/hallison/git-lighttp
-[2]: mailto:hallisonbatista@gmail.com
+[7]: http://gitlab.com/hallison/git-lighttp/issues
+[8]: mailto:hallisonbatista@gmail.com
 
-Discuss in [Google Groups][1].
+Discuss in [Google Groups][9].
 
-[1]: http://groups.google.com/group/git-lighttp
+[9]: http://groups.google.com/group/git-lighttp
 
 ## AUTHORS
 
@@ -81,13 +81,14 @@ Written by Hallison Batista <hallisonbatista@gmail.com>.
 ## BUGS
 
 If you find a bug, please report it at the Git-Lighttp project's
-[issues tracker][1] on Github.
+issues tracker on [Gitlab][10] or [Github][11].
 
-[1]: http://github.com/hallison/git-lighttp
+[10]: http://gitlab.com/hallison/git-lighttp
+[11]: http://github.com/hallison/git-lighttp
 
 ## LICENSE
 
-Git-Lighttp is Copyright (c) 2011-2015 Hallison Batista.
+Git-Lighttp is Copyright (c) 2011-2016 Hallison Batista.
 
 This is free software, and may be redistributed under the terms specified in
 LICENSE.txt.

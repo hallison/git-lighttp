@@ -27,16 +27,16 @@ funcionalidades:
 
 ## SINOPSE
 
-Instale o Git-Lighttp usando [Rubygems][1].
+Instale o Git-Lighttp usando [Rubygems][4].
 
-[1]: http://rubygems.org/gems/git-lighttp
+[4]: http://rubygems.org/gems/git-lighttp
 
     $ gem install git-lighttp
 
-Ou faça um _checkout_ do projeto hospedado no [Gitlab][1] ou no [Github][2].
+Ou faça um _checkout_ do projeto hospedado no [Gitlab][5] ou no [Github][6].
 
-[1]: http://gitlab.com/hallison/git-lighttp
-[2]: http://github.com/hallison/git-lighttp
+[5]: http://gitlab.com/hallison/git-lighttp
+[6]: http://github.com/hallison/git-lighttp
 
     $ git clone https://gitlab.com/hallison/git-lighttp.git
     ...
@@ -69,15 +69,15 @@ isso:
 
 O Git-Lighttp está em desenvolvimento, então ainda há muitas melhorias a serem
 feitas. Por favor, nos ajude a melhorar o projeto enviando seu comentário nos
-[problemas][1] encontrados ou enviando um email para
-[hallisonbatista@gmail.com][2].
+[problemas][7] encontrados ou enviando um email para
+[hallisonbatista@gmail.com][8].
 
-[1]: http://github.com/hallison/git-lighttp/issues
-[2]: mailto:hallisonbatista@gmail.com
+[7]: http://gitlab.com/hallison/git-lighttp/issues
+[8]: mailto:hallisonbatista@gmail.com
 
-Discuta no [Google Groups][1].
+Discuta no [Google Groups][9].
 
-[1]: http://groups.google.com/group/git-lighttp
+[9]: http://groups.google.com/group/git-lighttp
 
 ## AUTORES
 
@@ -86,14 +86,15 @@ Escrito por Hallison Batista <hallisonbatista@gmail.com>.
 ## ERROS
 
 Se você encontrar um erro, por favor, informe no
-[gerenciador de erros][1] do projeto
-Git-Lighttp no Github.
+gerenciador de erros do projeto
+Git-Lighttp no [Gitlab][10] ou no [Github][11].
 
-[1]: http://github.com/hallison/git-lighttp
+[10]: http://github.com/hallison/git-lighttp
+[11]: http://gitlab.com/hallison/git-lighttp
 
 ## LICENÇA
 
-Git-Lighttp é Copyright (c) 2011-2015 Hallison Batista.
+Git-Lighttp é Copyright (c) 2011-2016 Hallison Batista.
 
 Este é um _software_ livre e pode ser redistribuído sob os termos
 especificados em LICENSE.txt.

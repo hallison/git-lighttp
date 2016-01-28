@@ -8,7 +8,7 @@ Gem::Specification.new do |g|
   g.summary   = 'Git Web implementation of the Light (Smart) HTTP'
   g.authors   = ['Hallison Batista']
   g.email     = 'hallisonbatista@gmail.com'
-  g.homepage  = 'http://github.com/hallison/git-lighttp'
+  g.homepage  = 'https://gitlab.com/hallison/git-lighttp'
   g.version   = Git::Lighttp::VERSION
   g.date      = Git::Lighttp::RELEASE
   g.licenses  = ['MIT']
@@ -16,6 +16,7 @@ Gem::Specification.new do |g|
   g.test_files = g.files.select do |path|
     path =~ %r{^test/.*}
   end
+
   g.files = %x(git ls-files).split.reject do |out|
     ignore = out =~ /([MR]ake|Gem)file/ || out =~ /^\./
     ignore = ignore || out =~ %r{^doc/api} || out =~ %r{^test/.*}
