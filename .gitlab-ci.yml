@@ -1,0 +1,3 @@
+build:
+  script:
+  - make clean all build
