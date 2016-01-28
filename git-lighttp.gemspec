@@ -1,6 +1,6 @@
 $LOAD_PATH.unshift 'lib' unless $LOAD_PATH.include? 'lib'
 
-require 'git/lighttp'
+require 'git/lighttp/version'
 
 Gem::Specification.new do |g|
   g.platform  = Gem::Platform::RUBY
