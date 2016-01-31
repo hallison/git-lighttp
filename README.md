@@ -11,10 +11,6 @@ This project was inspired in the [Grack][1] Smart-HTTP server handler (written
 by [Scott Chacon][2]) but developed using [Sinatra][3] and aims replace the
 original `git-http-backend` including new features.
 
-[1]: http://github.com/schacon/grack
-[2]: http://github.com/schacon
-[3]: http://www.sinatrarb.com
-
 The main goal of the **Git-Lighttp** is implement the following useful features.
 
 - Smart-HTTP, based on _git-http-backend_.
@@ -28,12 +24,7 @@ Install the Git-Lighttp using [Rubygems][4].
 
     $ gem install git-lighttp
 
-[4]: http://rubygems.org/gems/git-lighttp
-
 Or checkout the project hosted on [Gitlab][5] or [Github][6].
-
-[5]: http://gitlab.com/hallison/git-lighttp
-[6]: http://github.com/hallison/git-lighttp
 
     $ git clone https://gitlab.com/hallison/git-lighttp.git
     $ ...
@@ -56,6 +47,8 @@ Configure the Rackup file (`config.ru`) using the following instructions:
 
     run Git::Lighttp::HttpBackend
 
+And run:
+
     $ rackup --port 9092 --daemonize
     $ git clone http://localhost:9092/mycode.git
 
@@ -67,12 +60,7 @@ The Git-Lighttp is under development, so there are still many improvements to
 be made. Please, help us to improve the project sending your feedback to
 [issues][7] or sending email to [hallisonbatista@gmail.com][8].
 
-[7]: http://gitlab.com/hallison/git-lighttp/issues
-[8]: mailto:hallisonbatista@gmail.com
-
 Discuss in [Google Groups][9].
-
-[9]: http://groups.google.com/group/git-lighttp
 
 ## AUTHORS
 
@@ -81,10 +69,7 @@ Written by Hallison Batista <hallisonbatista@gmail.com>.
 ## BUGS
 
 If you find a bug, please report it at the Git-Lighttp project's
-issues tracker on [Gitlab][10] or [Github][11].
-
-[10]: http://gitlab.com/hallison/git-lighttp
-[11]: http://github.com/hallison/git-lighttp
+issues tracker on [Gitlab][5] or [Github][6].
 
 ## LICENSE
 
@@ -92,4 +77,14 @@ Git-Lighttp is Copyright (c) 2011-2016 Hallison Batista.
 
 This is free software, and may be redistributed under the terms specified in
 LICENSE.txt.
+
+[1]: http://github.com/schacon/grack
+[2]: http://github.com/schacon
+[3]: http://www.sinatrarb.com
+[4]: http://rubygems.org/gems/git-lighttp
+[5]: http://gitlab.com/hallison/git-lighttp
+[6]: http://github.com/hallison/git-lighttp
+[7]: http://gitlab.com/hallison/git-lighttp/issues
+[8]: mailto:hallisonbatista@gmail.com
+[9]: http://groups.google.com/group/git-lighttp
 
