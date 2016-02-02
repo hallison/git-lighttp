@@ -11,23 +11,22 @@ require 'git/lighttp/version'
 
 # See *Git::Lighttp* for documentation.
 module Git
-
-  # The main goal of the *Git::Lighttp* is implement the following useful
-  # features.
+  # Module wich implements the following features:
   #
-  # - Smart-HTTP, based on _git-http-backend_.
-  # - Authentication flexible based on database or configuration file like +.htpasswd+.
+  # - Smart-HTTP, based on +git-http-backend+.
+  # - Authentication flexible based on database or configuration file like
+  #   +.htpasswd+.
   # - API to get information about repository.
   #
-  # This class configure the needed variables used by application. See
-  # Config::DEFAULTS for the values will be initialized by default.
-  # 
+  # This class configure the needed variables used by application.
+  #
   # Basically, the +default+ attribute set the values that will be necessary
   # by all applications.
   #
-  # The HTTP-Backend application is configured by +http_backend+ attribute
-  # to set the Git RCP CLI. More details about this feature, see the
-  # {git-http-backend official page}[http://www.kernel.org/pub/software/scm/git/docs/git-http-backend.html]
+  # The HTTP-Backend application is configured by +http_backend+ attribute to
+  # set the Git RCP CLI. More details about this feature, see
+  # +git-http-backend+ {official
+  # page}[http://www.kernel.org/pub/software/scm/git/docs/git-http-backend.html].
   #
   # For tree view (JSON API) just use the attribute +treeish+.
   #
@@ -62,9 +61,7 @@ module Git
   #   *http_backend.receive_pack* ::
   #     Like +http.receivepack+.
   module Lighttp
-
     class ProjectHandler #:nodoc:
-
       # Path to git comamnd
       attr_reader :path
 
@@ -79,7 +76,7 @@ module Git
       end
 
       def path_to(*args)
-        File.join(@repository || @project_root, *(args.compact.map(&:to_s)))
+        File.join(@repository || @project_root, *args.compact.map(&:to_s))
       end
 
       def repository=(name)
@@ -87,11 +84,11 @@ module Git
       end
 
       def cli(command, *args)
-        %Q[#{@path} #{args.unshift(command.to_s.gsub('_','-')).compact.join(' ')}]
+        "#{@path} #{args.unshift(command.to_s.tr('_', '-')).compact.join(' ')}"
       end
 
       def run(command, *args)
-        chdir{ %x[#{cli command, *args}] }
+        chdir { %x(#{cli command, *args}) }
       end
 
       def read_file(*file)
@@ -114,28 +111,38 @@ module Git
         list = run("ls-tree --abbrev=6 --full-tree --long #{ref}:#{path}")
         if list
           tree = []
-          list.scan %r{^(\d{3})(\d)(\d)(\d) (\w.*?) (.{6})[ \t]{0,}(.*?)\t(.*?)\n}m do
+          pattern = /^
+            (?<ty>\d{3})
+            (?<pu>\d)
+            (?<pg>\d)
+            (?<po>\d)[ ]
+            (?<ot>\w.*?)[ ]
+            (?<oh>.{6})[ \t]{0,}
+            (?<sz>.*?)\t
+            (?<nm>.*?)\n
+          /mux
+          list.scan pattern do |ty, pu, pg, po, ot, oh, sz, nm|
             object = {
-              :ftype => ftype[$1],
-              :fperm => "#{fperm[$2.to_i]}#{fperm[$3.to_i]}#{fperm[$4.to_i]}",
-              :otype => $5.to_sym,
-              :ohash => $6,
-              :fsize => fsize($7, 2),
-              :fname => $8
+              ftype: ftype[ty],
+              fperm: "#{fperm[pu.to_i]}#{fperm[pg.to_i]}#{fperm[po.to_i]}",
+              otype: ot.to_sym,
+              ohash: oh,
+              fsize: fsize(sz, 2),
+              fname: nm
             }
             object[:objects] = nil if object[:otype] == :tree
             tree << object
           end
           tree
         else
-          nil
+          false
         end
       end
 
       private
 
       def repository_path(name)
-        bare = name =~ /\w\.git/ ? name : %W[#{name} .git]
+        bare = name =~ /\w\.git/ ? name : %W(#{name} .git)
         check_path(path_to(*bare))
       end
 
@@ -152,23 +159,24 @@ module Git
       end
 
       def fperm
-        [ '---', '--x', '-w-', '-wx', 'r--', 'r-x', 'rw-', 'rwx'  ]
+        ['---', '--x', '-w-', '-wx', 'r--', 'r-x', 'rw-', 'rwx']
       end
 
       def fsize(str, scale = 1)
-        units = [ :b, :kb, :mb, :gb, :tb ]
+        units = [:b, :kb, :mb, :gb, :tb]
         value = str.to_f
         size  = 0.0
         units.each_index do |i|
           size = value / 1024**i
-          return [format("%.#{scale}f", size).to_f, units[i].to_s.upcase] if size <= 10
+          return [
+            format("%.#{scale}f", size).to_f,
+            units[i].to_s.upcase
+          ] if size <= 10
         end
       end
-
     end
 
     class Htpasswd #:nodoc:
-
       def initialize(file)
         require 'webrick/httpauth/htpasswd'
         @handler = WEBrick::HTTPAuth::Htpasswd.new(file)
@@ -178,14 +186,14 @@ module Git
       def find(username) #:yield: password, salt
         password = @handler.get_passwd(nil, username, false)
         if block_given?
-          yield password ? [password, password[0,2]] : [nil, nil]
+          yield password ? [password, password[0, 2]] : [nil, nil]
         else
           password
         end
       end
 
       def authenticated?(username, password)
-        self.find username do |crypted, salt|
+        find username do |crypted, salt|
           crypted && salt && crypted == password.crypt(salt)
         end
       end
@@ -214,12 +222,11 @@ module Git
       private
 
       def users
-        @handler.each{|username, password| username }
+        @handler.each { |username, _password| username }
       end
     end
 
     class Htgroup #:nodoc:
-
       def initialize(file)
         require 'webrick/httpauth/htgroup'
         WEBrick::HTTPAuth::Htgroup.class_eval do
@@ -234,15 +241,13 @@ module Git
       end
 
       def groups(username)
-        @handler.group.select do |group, members|
+        @handler.group.select do |_group, members|
           members.include? username
         end.keys
       end
-
     end
 
     module GitHelpers #:nodoc:
-
       def git
         @git ||= ProjectHandler.new(settings.project_root, settings.git_path)
       end
@@ -255,11 +260,9 @@ module Git
       def content_type_for_git(name, *suffixes)
         content_type("application/x-git-#{name}-#{suffixes.compact.join('-')}")
       end
-
     end
 
     module AuthenticationHelpers #:nodoc:
-
       def htpasswd
         @htpasswd ||= Htpasswd.new(git.path_to('htpasswd'))
       end
@@ -273,24 +276,24 @@ module Git
       end
 
       def authenticate(username, password)
-        checked   = [ username, password ] == authentication.credentials
+        checked   = [username, password] == authentication.credentials
         validated = authentication.provided? && authentication.basic?
         granted   = htpasswd.authenticated? username, password
-        if checked and validated and granted
+        if checked && validated && granted
           request.env['git.lighttp.authenticated'] = true
           request.env['REMOTE_USER'] = authentication.username
         else
-          nil
+          false
         end
       end
 
-      def unauthorized!(realm = Git::Lighttp::info)
+      def unauthorized!(realm = Git::Lighttp.info)
         headers 'WWW-Authenticate' => %(Basic realm="#{realm}")
-        throw :halt, [ 401, 'Authorization Required' ]
+        throw :halt, [401, 'Authorization Required']
       end
 
       def bad_request!
-        throw :halt, [ 400, 'Bad Request' ]
+        throw :halt, [400, 'Bad Request']
       end
 
       def authenticate!
@@ -313,19 +316,19 @@ module Git
 
     class << self
 
-      DEFAULT_CONFIG =  {
-        :default => {
-          :project_root => '/home/git',
-          :git_path     => '/usr/bin/git'
+      DEFAULT_CONFIG = {
+        default: {
+          project_root: '/home/git',
+          git_path: '/usr/bin/git'
         },
-        :treeish => {
-          :authenticate => false
+        treeish: {
+          authenticate: false
         },
-        :http_backend => {
-          :authenticate => true,
-          :get_any_file => true,
-          :upload_pack  => true,
-          :receive_pack => false
+        http_backend: {
+          authenticate: true,
+          get_any_file: true,
+          upload_pack: true,
+          receive_pack: false
         }
       }.freeze
 
@@ -338,7 +341,7 @@ module Git
       end
 
       # Configure Git::Lighttp modules using keys. See Config for options.
-      def configure(&block)
+      def configure(*) # :yield: config
         yield config
         config
       end
@@ -350,7 +353,7 @@ module Git
           end
         end
         config
-      rescue IndexError => error
+      rescue IndexError
         abort 'configuration option not found'
       end
     end
