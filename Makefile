@@ -15,13 +15,13 @@ ctags:
 clean:
 	rm -rf $(name)-*.gem
 	rm -rf *.lock
-	rm -rf doc/api/**
+	rm -rf doc/api
 
 check:
 	ruby test/all.rb
 
 docs:
-	rdoc -o doc/api -H -f fivefish -m README.rdoc
+	rdoc --output doc/api --title Git-Lighttp --main README.md --show-hash
 
 build:
 	gem $@ $(specfile)

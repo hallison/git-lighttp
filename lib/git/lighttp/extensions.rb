@@ -1,63 +1,59 @@
-class Object
+# encoding: utf-8
+class Object #:nodoc:
   # Set instance variables by key and value only if object respond
   # to access method for variable.
   def instance_variables_set_from(hash)
     hash.collect do |variable, value|
-      self.instance_variable_set("@#{variable}", value) if self.respond_to? variable
+      instance_variable_set("@#{variable}", value) if respond_to? variable
     end
     self
   end
-
 end
 
-class Symbol
-
+class Symbol #:nodoc:
   # Method for comparison between symbols.
   def <=>(other)
-    self.to_s <=> other.to_s
+    to_s <=> other.to_s
   end
 
   # Parse the symbol name to constant name. Example:
   #
   #   $ :http_backend.to_const_name
-  #   => "HttpBackend"
+  #   => 'HttpBackend'
   def to_const_name
-    n = self.to_s.split(/_/).map(&:capitalize).join
+    n = to_s.split(/_/).map(&:capitalize).join
     RUBY_VERSION =~ /1\.8/ ? n : n.to_sym
   end
-
 end
 
-class Hash
-
-  # Only symbolize all keys, including all key in sub-hashes. 
+class Hash #:nodoc:
+  # Only symbolize all keys, including all key in sub-hashes.
   def symbolize_keys
-    return self.clone if self.empty?
-    self.inject({}) do |h, (k, v)|
-      h[k.to_sym] = (v.kind_of? Hash) ? v.symbolize_keys : v
-      h
+    return clone if empty?
+    each_with_object({}) do |(key, value), hash|
+      hash[key.to_sym] = (value.is_a? Hash) ? value.symbolize_keys : value
+      hash
     end
   end
 
   # Convert to Struct including all values that are Hash class.
   def to_struct
-    keys    = self.keys.sort
-    members = keys.map(&:to_sym)
-    Struct.new(*members).new(*keys.map do |key|
-      (self[key].kind_of? Hash) ?  self[key].to_struct : self[key]
-    end) unless self.empty?
+    attributes = keys.sort
+    members    = attributes.map(&:to_sym)
+    Struct.new(*members).new(*attributes.map do |key|
+      attribute = fetch key
+      (attribute.is_a? Hash) ? attribute.to_struct : attribute
+    end) unless empty?
   end
-
 end
 
-class String
-
+class String #:nodoc:
   def to_semver_h
     tags   = [:major, :minor, :patch, :status]
-    values = self.split(".").map do |key|
+    values = split('.').map do |key|
       # Check pre-release status
-      if key.match(/^(\d{1,})([a-z]+[\d\w]{1,}.*)$/i)
-        [ $1.to_i, $2 ]
+      if key =~ /^(?<minor>\d{1,})(?<status>[a-z]+[\d\w]{1,}.*)$/i
+        [minor.to_i, status]
       else
         key.to_i
       end
@@ -66,8 +62,8 @@ class String
   end
 
   def to_attr_name
-    self.split("::").last.gsub(/(.)([A-Z])/){"#{$1}_#{$2.downcase}"}.downcase
+    split('::').last.gsub(/(?<obj>.)(?<action>[A-Z])/) do
+      [obj, access.downcase].join('_')
+    end.downcase
   end
-
 end
-
