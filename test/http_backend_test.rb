@@ -5,7 +5,7 @@ alias response last_response
 describe 'HTTP Backend server' do
   def app
     Git::Lighttp::HttpBackend.configure do |server|
-      server.project_root = fixtures
+      server.project_root = fixtures(:repositories)
       server.git_path     = '/usr/bin/git'
       server.get_any_file = true
       server.upload_pack  = true

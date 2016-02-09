@@ -59,5 +59,4 @@ describe 'HTTP password handler' do
   it 'check invalid user' do
     assert !@htpasswd.authenticated?('nobody', 'empty')
   end
-
 end

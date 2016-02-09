@@ -7,7 +7,7 @@ alias response last_response
 describe 'HTTP Backend server authentication' do
   def app
     Git::Lighttp::HttpBackend.configure do |server|
-      server.project_root = fixtures
+      server.project_root = fixtures(:repositories)
       server.git_path     = '/usr/bin/git'
       server.authenticate = true
     end

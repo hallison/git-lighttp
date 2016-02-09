@@ -1,6 +1,6 @@
 describe 'Project handler' do
   before do
-    @git = Git::Lighttp::ProjectHandler.new(fixtures, '/usr/bin/git')
+    @git = Git::Lighttp::ProjectHandler.new(fixtures(:repositories), '/usr/bin/git')
     @objects = [
       'HEAD',
       'info/refs',
@@ -21,17 +21,17 @@ describe 'Project handler' do
   end
 
   it 'check basic attributes' do
-    assert_equal fixtures, @git.project_root
+    assert_equal fixtures(:repositories), @git.project_root
     assert_equal '/usr/bin/git', @git.path
   end
 
   it 'config repository path' do
-    assert_equal fixtures('mycode.git'), @git.repository
+    assert_equal fixtures(:repositories, 'mycode.git'), @git.repository
   end
 
   it 'find repository objects' do
     @objects.each do |object|
-      assert_equal fixtures('mycode.git', object), @git.path_to(object)
+      assert_equal fixtures(:repositories, 'mycode.git', object), @git.path_to(object)
       assert File.exist?(@git.path_to(object))
     end
   end
