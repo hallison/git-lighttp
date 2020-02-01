@@ -145,7 +145,7 @@ module Git::Lighttp
     end
 
     # implements the get_text_file and get_info_packs functions
-    get %r{/(.*?)/objects/info/(packs|alternates|http-alternates)$} do |repository, file|
+    get %r{/(.*?)/objects/info/(packs|alternates|http-alternates)} do |repository, file|
       if file == 'packs'
         send_info_packs
       else
@@ -154,12 +154,12 @@ module Git::Lighttp
     end
 
     # implements the get_loose_object function
-    get %r{/(.*?)/objects/([0-9a-f]{2})/([0-9a-f]{38})$} do |repository, prefix, suffix|
+    get %r{/(.*?)/objects/([0-9a-f]{2})/([0-9a-f]{38})} do |repository, prefix, suffix|
       send_loose_object(prefix, suffix)
     end
 
     # implements the get_pack_file and get_idx_file functions
-    get %r{/(.*?)/objects/pack/(pack-[0-9a-f]{40}.(pack|idx))$} do |repository, pack, ext|
+    get %r{/(.*?)/objects/pack/(pack-[0-9a-f]{40}.(pack|idx))} do |repository, pack, ext|
       send_pack_idx_file(pack, ext == 'idx')
     end
 

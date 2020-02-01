@@ -12,7 +12,6 @@ module Minitest
   end
 
   module Assertions
-
     def assert_hash_equal(expected, actual, message = nil)
       messages = {}
       expected.keys.each do |key|
@@ -22,11 +21,9 @@ module Minitest
       end
     end
   end
-
 end
 
 class MockProcess
-
   def initialize
     @counter = 0
   end
@@ -43,7 +40,6 @@ class MockProcess
     @counter += 1
     @counter > 10 ? true : false
   end
-
 end
 
 class IO

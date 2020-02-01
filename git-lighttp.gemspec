@@ -3,7 +3,6 @@ $LOAD_PATH.unshift 'lib' unless $LOAD_PATH.include? 'lib'
 require 'git/lighttp/version'
 
 Gem::Specification.new do |g|
-  g.platform  = Gem::Platform::RUBY
   g.name      = 'git-lighttp'
   g.summary   = 'Git Web implementation of the Light (Smart) HTTP'
   g.authors   = ['Hallison Batista']
@@ -13,22 +12,26 @@ Gem::Specification.new do |g|
   g.date      = Git::Lighttp::RELEASE
   g.licenses  = ['MIT']
 
-  g.test_files = g.files.select do |path|
-    path =~ %r{^test/.*}
-  end
+  g.platform  = Gem::Platform::RUBY
 
   g.files = %x(git ls-files).split.reject do |out|
     ignore = out =~ /([MR]ake|Gem)file/ || out =~ /^\./
     ignore = ignore || out =~ %r{^doc/api} || out =~ %r{^test/.*}
     ignore
   end
+
+  g.test_files = g.files.select do |path|
+    path =~ %r{^test/.*}
+  end
+
   g.description = <<-end
   Git::Lighttp is a implementation of the several features:
   - Smart HTTP which works like as git-http-backend.
   - Show info pages about the projects.
   end
-  g.add_dependency 'sinatra', '~> 1.4'
-  g.add_dependency 'json',    '~> 1.8'
+
+  g.add_dependency 'sinatra'
+  g.add_dependency 'json'
 
   g.add_development_dependency 'minitest',    '~> 5.8'
   g.add_development_dependency 'minitest-rg', '~> 5.2'
