@@ -10,7 +10,7 @@ module Git::Lighttp
       authenticate! if settings.authenticate
     end
 
-    get %r{/(.*?)/(.*?/{0,1}.*)$} do |name, path|
+    get %r{/(.*?)/(.*?/{0,1}.*)} do |name, path|
       content_type :json
       path = path.split('/')
       ref  = path.shift
