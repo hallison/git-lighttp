@@ -13,7 +13,6 @@ Gem::Specification.new do |g|
   g.licenses  = ['MIT']
 
   g.platform  = Gem::Platform::RUBY
-  g.required_ruby_version = '~> 1.9'
 
   g.files = %x(git ls-files).split.reject do |out|
     ignore = out =~ /([MR]ake|Gem)file/ || out =~ /^\./
@@ -31,8 +30,8 @@ Gem::Specification.new do |g|
   - Show info pages about the projects.
   end
 
-  g.add_dependency 'sinatra', '~> 1.4'
-  g.add_dependency 'json',    '~> 1.8'
+  g.add_dependency 'sinatra'
+  g.add_dependency 'json'
 
   g.add_development_dependency 'minitest',    '~> 5.8'
   g.add_development_dependency 'minitest-rg', '~> 5.2'
