@@ -47,6 +47,9 @@ Configure the Rackup file (`config.ru`) using the following instructions:
 
     run Git::Lighttp::HttpBackend
 
+If server.authenticate is set to true, create your own htpasswd file and move it to /home/git/repositories/htpasswd
+
+
 And run:
 
     $ rackup --port 9092 --daemonize
